@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3-DistanceBetweenPoints
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4-SwitchNumbers", "SwitchNumbers\Task4-SwitchNumbers.csproj", "{797E5626-E9AD-43CE-B575-CCFBE38D69D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityLibraries", "UtilityLibraries\UtilityLibraries.csproj", "{D8B5035C-2EC3-419B-B929-CF17B136B7C2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{797E5626-E9AD-43CE-B575-CCFBE38D69D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{797E5626-E9AD-43CE-B575-CCFBE38D69D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{797E5626-E9AD-43CE-B575-CCFBE38D69D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8B5035C-2EC3-419B-B929-CF17B136B7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8B5035C-2EC3-419B-B929-CF17B136B7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8B5035C-2EC3-419B-B929-CF17B136B7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8B5035C-2EC3-419B-B929-CF17B136B7C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
