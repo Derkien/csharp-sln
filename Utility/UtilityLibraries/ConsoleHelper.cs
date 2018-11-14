@@ -88,11 +88,14 @@ namespace UtilityLibraries
 
         public static void PrintConsoleMessageAtTheMiddle(string title, string outputString)
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(string.Format("{0, " + ((Console.WindowWidth / 2) + (title.Length / 2)) + "}", title));
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine(string.Format("{0, " + ((Console.WindowWidth / 2) + (outputString.Length / 2)) + "}", outputString));
-            Console.ResetColor();
+            PrintConsoleMessageWithColor(
+                string.Format("{0, " + ((Console.WindowWidth / 2) + (title.Length / 2)) + "}", title),
+                ConsoleColor.Blue
+            );
+            PrintConsoleMessageWithColor(
+                string.Format("{0, " + ((Console.WindowWidth / 2) + (outputString.Length / 2)) + "}", outputString),
+                ConsoleColor.DarkGreen
+            );
         }
 
         public static void PrintConsoleMessageWithColor(string message, ConsoleColor color)
@@ -105,30 +108,29 @@ namespace UtilityLibraries
         public static void PrintMenu(IReadOnlyDictionary<uint, string> menuItems)
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Program menu:");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            PrintConsoleMessageWithColor("Program menu:", ConsoleColor.Yellow);
             foreach (var MenuItem in menuItems)
             {
-                Console.WriteLine("{0} - {1}", MenuItem.Key, MenuItem.Value);
+                PrintConsoleMessageWithColor($"{MenuItem.Key} - {MenuItem.Value}", ConsoleColor.DarkYellow);
             }
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Choose one and press Enter...");
-            Console.ResetColor();
+            PrintConsoleMessageWithColor("Choose one and press Enter...", ConsoleColor.Cyan);
         }
 
         public static uint PrintMenuAndReadChoice(IReadOnlyDictionary<uint, string> menuItems)
         {
             bool ParseInputResult = false;
             uint UserChoice;
+
+            PrintMenu(menuItems);
+
+            int StartProgramCursorPosition = Console.CursorTop;
             do
             {
-                PrintMenu(menuItems);
                 ParseInputResult = uint.TryParse(Console.ReadLine(), out UserChoice);
                 if (!ParseInputResult)
                 {
-                    Console.WriteLine("Invalid choise. Press any key...");
-                    Console.ReadKey();
+                    PrintAndPause("Invalid choise.");
+                    ClearPreviousNLines(Console.CursorTop - StartProgramCursorPosition);
                 }
             } while (!ParseInputResult);
 
@@ -137,35 +139,23 @@ namespace UtilityLibraries
 
         public static T ReadInputUntillCorrect<T>(string message, Func<string, T> func)
         {
+            int StartProgramCursorPosition = Console.CursorTop;
             try
             {
                 return func(message);
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.Message);
+                PrintAndPause("Error! " + exception.Message);
+                ClearPreviousNLines(Console.CursorTop - StartProgramCursorPosition);
             }
 
             return ReadInputUntillCorrect(message, func);
         }
-
-        public static double ReadAnyNumberInputUntillCorrect(string message)
+        
+        public static void PrintAndPause(string message, ConsoleColor color = ConsoleColor.White)
         {
-            try
-            {
-                return ReadAnyNumberInput(message);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
-
-            return ReadAnyNumberInputUntillCorrect(message);
-        }
-
-        public static void PrintAndPause(string message)
-        {
-            Console.WriteLine(message);
+            PrintConsoleMessageWithColor(message, color);
             Console.WriteLine("Press any key for continue...");
             Console.ReadKey();
         }
