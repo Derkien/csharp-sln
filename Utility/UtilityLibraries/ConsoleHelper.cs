@@ -170,5 +170,19 @@ namespace UtilityLibraries
                 Console.SetCursorPosition(0, CursorPreviousLine);
             }
         }
+
+        public static void ExecuteMethodUntilItReturnsTrue(Func<bool> method)
+        {
+            int CurrentCursorPosition = Console.CursorTop;
+            bool IsExecuteMethodAgain = false;
+            do
+            {
+                IsExecuteMethodAgain = method();
+                if (IsExecuteMethodAgain)
+                {
+                    ClearPreviousNLines(Console.CursorTop - CurrentCursorPosition);
+                }
+            } while (IsExecuteMethodAgain);
+        }
     }
 }
